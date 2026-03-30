@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MB Health Pro V10</title>
+  <meta name="theme-color" content="#198754" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="MB Health Pro V10" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <style>
+    :root{--card:#fff;--text:#163020;--muted:#63806f;--border:#d7e7db;--primary:#198754;--primary-dark:#146c43;--ok-bg:#dcfce7;--ok-text:#166534;--warn-bg:#fef3c7;--warn-text:#92400e;--danger-bg:#fee2e2;--danger-text:#991b1b;--info-bg:#ecfdf3;--info-text:#14532d;--shadow:0 12px 28px rgba(20,108,67,.08);}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,#f8fdf9 0%, #eef8f1 100%)}
+    .app{max-width:1180px;margin:0 auto;padding:14px}
+    .hero{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-radius:28px;padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:58px;height:58px;border-radius:18px;background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.24);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px}
+    .brand h1{margin:0 0 4px;font-size:25px}.brand p{margin:0;font-size:13px;opacity:.95}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-btn{border:none;background:rgba(255,255,255,.16);color:#fff;border-radius:14px;padding:10px 14px;font-weight:bold;cursor:pointer;border:1px solid rgba(255,255,255,.18)}
+    .hero-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-top:16px}
+    .dash-card{background:#fff;color:var(--text);border-radius:18px;padding:14px;box-shadow:var(--shadow);min-height:106px}
+    .dash-title{font-size:12px;font-weight:bold;color:#37664c;margin-bottom:8px}.dash-value{font-size:22px;font-weight:bold;color:var(--primary-dark);line-height:1.2}.dash-sub{margin-top:6px;font-size:12px;color:var(--muted);line-height:1.5}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+    .tab-btn{border:none;background:#fff;color:var(--primary-dark);border:1px solid var(--border);border-radius:14px;padding:12px 16px;cursor:pointer;font-weight:bold;box-shadow:var(--shadow)}
+    .tab-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-color:transparent}
+    .tab-panel{display:none}.tab-panel.active{display:block}
+    .layout{display:grid;grid-template-columns:1.08fr .92fr;gap:16px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:16px;box-shadow:var(--shadow);margin-bottom:16px}
+    .card h2{margin:0 0 8px;font-size:21px;color:var(--primary-dark)} .subtext{color:var(--muted);font-size:13px;margin-bottom:12px;line-height:1.6}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    label{display:block;margin:12px 0 8px;font-size:14px;font-weight:bold}
+    input,select,textarea{width:100%;border:1px solid var(--border);border-radius:16px;padding:13px;font-size:15px;background:#fff;color:var(--text);outline:none}
+    textarea{min-height:84px;resize:vertical} input:focus,select:focus,textarea:focus{border-color:#8bcda6;box-shadow:0 0 0 3px rgba(25,135,84,.12)}
+    .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+    button{border:none;border-radius:16px;padding:14px;font-size:15px;font-weight:bold;cursor:pointer}
+    .btn-main{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff}.btn-soft{background:#edf7f0;color:var(--primary-dark)}.btn-warning{background:#fff4d6;color:#7a5a00}.btn-danger{background:#fdeaea;color:#991b1b}.btn-mini{padding:8px 12px;font-size:13px;border-radius:10px}
+    .box{margin-top:14px;border-radius:16px;padding:14px;border:1px solid var(--border);white-space:pre-line;line-height:1.75;font-size:14px}
+    .ok{background:var(--ok-bg);color:var(--ok-text)} .warn{background:var(--warn-bg);color:var(--warn-text)} .danger{background:var(--danger-bg);color:var(--danger-text)} .info{background:var(--info-bg);color:var(--info-text)}
+    .status-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:bold;margin-top:10px}
+    .mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .metric{border:1px solid var(--border);border-radius:18px;padding:14px;background:#fff}.metric .k{font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:bold}.metric .v{font-size:24px;font-weight:bold;color:var(--primary-dark)}
+    .chart{margin-top:14px;border:1px solid var(--border);background:#fbfefc;border-radius:18px;padding:14px}.chart-title{font-size:14px;font-weight:bold;color:#315b45;margin-bottom:10px}
+    .bars{height:190px;display:flex;align-items:flex-end;gap:10px;border-bottom:2px solid #d9eade;padding-bottom:8px;overflow-x:auto}
+    .bar-wrap{min-width:40px;text-align:center}.bar{width:100%;border-radius:12px 12px 6px 6px;background:linear-gradient(180deg,#5cc48a,#198754);min-height:8px}.bar-label{font-size:11px;color:var(--muted);margin-top:8px}.bar-value{font-size:11px;font-weight:bold;color:#2c5f42;margin-bottom:6px}
+    .list .item{padding:12px 0;border-bottom:1px dashed var(--border);line-height:1.75;font-size:14px}.list .item:last-child{border-bottom:none}.muted{color:var(--muted);font-size:12px}
+    .inline-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.archive-day{border:1px solid var(--border);border-radius:16px;margin-bottom:10px;overflow:hidden;background:#fff}
+    .archive-head{padding:13px;background:#f6fcf8;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}.archive-meta{font-size:12px;color:var(--muted);margin-top:4px}.archive-body{display:none;padding:13px;border-top:1px solid var(--border);background:#fff}.archive-body.open{display:block}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:bold}.pill.good{background:var(--ok-bg);color:var(--ok-text)}.pill.mid{background:var(--warn-bg);color:var(--warn-text)}.pill.bad{background:var(--danger-bg);color:var(--danger-text)}
+    .sticky-save{position:sticky;bottom:10px;z-index:4;margin-top:16px;background:rgba(243,250,245,.86);padding-top:8px;backdrop-filter:blur(6px)}
+    .progress-wrap{margin-top:10px}.progress{width:100%;height:12px;background:#eaf4ed;border-radius:999px;overflow:hidden;border:1px solid var(--border)}.progress>span{display:block;height:100%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));width:0%}
+    .filter-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.chip{border:none;background:#edf7f0;color:var(--primary-dark);padding:8px 12px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:bold}
+    .checklist{margin:0;padding-right:18px;line-height:2}.footer-note{text-align:center;color:var(--muted);font-size:12px;padding:8px 0 18px}
+    @media (max-width: 980px){.hero-grid,.layout,.grid,.grid3,.mini-grid,.filter-row{grid-template-columns:1fr}}
+    @media (max-width: 640px){.app{padding:10px}.hero{padding:14px;border-radius:22px}.card{padding:14px;border-radius:18px}.tabs{gap:8px}.tab-btn{flex:1}.btn-row{grid-template-columns:1fr}}
+  
+    .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .rule-pill{border-radius:999px;padding:18px 22px;font-size:18px;font-weight:bold;text-align:center;line-height:1.5}
+    .rule-good{background:#dff5e6;color:#216946}
+    .rule-warn{background:#f8efc8;color:#9a5e10}
+    .rule-danger{background:#f8dddd;color:#9d2323}
+
+  </style>
+</head>
+<body>
+<div class="app">
+<section class="hero">
+<div class="hero-top">
+<div class="brand"><div class="logo">MB</div><div><h1>MB Health Pro V10</h1><p>Premium Lux V10 V10 مع Local AI</p></div></div>
+<div class="hero-actions">
+<button class="hero-btn" onclick="exportData()">تصدير البيانات</button>
+<button class="hero-btn" onclick="document.getElementById('backupFile').click()">استيراد</button>
+<button class="hero-btn" id="installBtn" style="display:none;">تثبيت التطبيق</button>
+</div></div>
+<div class="hero-grid">
+<div class="dash-card"><div class="dash-title">آخر قراءة</div><div class="dash-value" id="dashLastSugar">--</div><div class="dash-sub" id="dashLastTime">لا توجد قراءة بعد</div></div>
+<div class="dash-card"><div class="dash-title">الحالة الحالية</div><div class="dash-value" id="dashStatus">ابدأ</div><div class="dash-sub" id="dashStatusSub">أضف أول قراءة</div></div>
+<div class="dash-card"><div class="dash-title">ماذا أفعل الآن</div><div class="dash-value" id="dashAction" style="font-size:18px">ابدأ بإضافة قراءة</div><div class="dash-sub" id="dashActionSub">سيظهر الاقتراح هنا</div></div>
+<div class="dash-card"><div class="dash-title">آخر وزن</div><div class="dash-value" id="dashWeight">--</div><div class="dash-sub" id="dashWeightSub">لا يوجد وزن محفوظ</div></div>
+<div class="dash-card"><div class="dash-title">التزام الأسبوع</div><div class="dash-value" id="dashScore">--</div><div class="dash-sub" id="dashScoreSub">لا توجد بيانات</div></div>
+    <div class="dash-card"><div class="dash-title">متوسط آخر 30 يوم</div><div class="dash-value" id="dashMonthAvg">--</div><div class="dash-sub" id="dashMonthSub">لا توجد بيانات</div></div>
+    <div class="dash-card"><div class="dash-title">أيام الاستمرار</div><div class="dash-value" id="dashStreak">0</div><div class="dash-sub" id="dashStreakSub">ابدأ اليوم</div></div>
+</div></section>
+
+<div class="tabs">
+<button class="tab-btn active" onclick="switchTab('home', this)">الرئيسية</button>
+<button class="tab-btn" onclick="switchTab('ai', this)">Local AI</button>
+      <button class="tab-btn" onclick="switchTab('add', this)">إضافة قراءة</button>
+<button class="tab-btn" onclick="switchTab('history', this)">السجل</button>
+<button class="tab-btn" onclick="switchTab('insights', this)">التحليلات</button>
+<button class="tab-btn" onclick="switchTab('weight', this)">الوزن والنسخة</button>
+</div>
+
+<section id="tab-home" class="tab-panel active"><div class="layout"><div>
+<div class="card"><h2>ملخص اليوم</h2><div class="subtext">ملخص سريع للحالة الحالية.</div><div id="todaySummary" class="box info">لا توجد قراءات اليوم بعد.</div><div id="currentStatusPill"></div></div>
+<div class="card"><h2>آخر 7 قراءات</h2><div class="chart"><div class="chart-title">الرسم المبسط</div><div class="bars" id="miniChart"><div class="muted">لا توجد بيانات بعد.</div></div></div></div>
+<div class="card"><h2>الطوارئ السريعة</h2><div class="box danger">إذا كان السكر أقل من 70: خذ سكرًا سريعًا وأعد القياس بعد 15 دقيقة.</div><div class="box warn">إذا كان السكر مرتفعًا جدًا: اشرب ماء وراقب لاحقًا واتبع توجيهات طبيبك.</div></div>
+</div><div>
+<div class="card"><h2>مؤشرات اليوم</h2><div class="mini-grid">
+<div class="metric"><div class="k">عدد قراءات اليوم</div><div class="v" id="metricTodayCount">0</div></div>
+<div class="metric"><div class="k">مرتفعة</div><div class="v" id="metricHighs">0</div></div>
+<div class="metric"><div class="k">منخفضة</div><div class="v" id="metricLows">0</div></div>
+<div class="metric"><div class="k">متوسط اليوم</div><div class="v" id="metricAvg">--</div></div>
+</div></div>
+<div class="card"><h2>الأهداف اليومية</h2>
+  <div class="subtext">تابع أهداف الماء والمشي يوميًا.</div>
+  <div class="mini-grid">
+    <div class="metric"><div class="k">أكواب الماء اليوم</div><div class="v" id="waterToday">0</div></div>
+    <div class="metric"><div class="k">مرات المشي اليوم</div><div class="v" id="walkToday">0</div></div>
+  </div>
+  <div class="progress" style="margin-top:12px"><span id="waterProgress"></span></div>
+  <div class="subtext" id="waterGoalText" style="margin-top:8px">الهدف: 8 أكواب ماء</div>
+  <div class="progress" style="margin-top:12px"><span id="walkProgress"></span></div>
+  <div class="subtext" id="walkGoalText" style="margin-top:8px">الهدف: 2 مرات مشي</div>
+</div>
+<div class="card"><h2>الخطة الذكية</h2><div id="smartPlan" class="box info">ابدأ بإضافة قراءات وسيتم بناء خطة لك.</div></div>
+<div class="card"><h2>تقدم الأسبوع</h2><div class="subtext">نسبة تقريبية حسب تسجيلك وحالة القراءات.</div><div class="progress-wrap"><div class="progress"><span id="scoreProgress"></span></div></div><div id="scoreBox" class="box info">لا توجد بيانات كافية بعد.</div></div>
+</div></div></section>
+
+
+<section id="tab-ai" class="tab-panel">
+  <div class="layout">
+    <div>
+      <div class="card glass-card">
+        <h2>AI Summary</h2>
+        <div class="subtext">تحليل محلي ذكي بدون إنترنت.</div>
+        <div id="aiSummaryBox" class="box info">أضف قراءات أكثر ليبدأ التحليل الذكي.</div>
+      </div>
+      <div class="card glass-card">
+        <h2>AI Advice</h2>
+        <div id="aiAdviceBox" class="box info">ستظهر هنا توصية يومية مركزة.</div>
+      </div>
+      <div class="card glass-card">
+        <h2>AI Pattern Detection</h2>
+        <div id="aiPatternBox" class="box info">سيكتشف التطبيق الأنماط المتكررة من بياناتك.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card glass-card">
+        <h2>AI Risk Score</h2>
+        <div class="subtext">تقدير محلي للمخاطر حسب آخر 7 أيام.</div>
+        <div class="progress"><span id="aiRiskProgress"></span></div>
+        <div id="aiRiskBox" class="box info">لا توجد بيانات كافية بعد.</div>
+      </div>
+      <div class="card glass-card">
+        <h2>AI Daily Coach</h2>
+        <div id="aiCoachBox" class="box info">المدرب اليومي سيظهر هنا.</div>
+      </div>
+      <div class="card glass-card">
+        <h2>AI Weekly Insight</h2>
+        <div id="aiWeeklyBox" class="box info">الخلاصة الأسبوعية الذكية ستظهر هنا.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-add" class="tab-panel"><div class="layout"><div>
+<div class="card"><h2>إضافة قراءة السكر</h2><div class="subtext">نسخة أسرع مع إدخال أوضح.</div>
+<label for="sugar">قراءة السكر (mg/dL)</label><input type="number" id="sugar" placeholder="مثال: 126" min="20" max="600" />
+<div class="grid3">
+<div><label for="time">وقت القراءة</label><select id="time"><option>قبل الفطور</option><option>بعد الفطور بساعتين</option><option>قبل الغداء</option><option>بعد الغداء بساعتين</option><option>قبل العشاء</option><option>بعد العشاء بساعتين</option><option>قبل النوم</option></select></div>
+<div><label for="trend">اتجاه السهم</label><select id="trend"><option>ثابت</option><option>صاعد</option><option>هابط</option></select></div>
+<div><label for="recordDateTime">تاريخ ووقت القراءة</label><input type="datetime-local" id="recordDateTime" /></div>
+</div>
+<div class="grid">
+<div><label for="insulin">💉 الأنسولين</label><select id="insulin"><option value="">-- اختر --</option><option>قبل الفطور</option><option>قبل العشاء</option></select></div>
+<div><label for="med">💊 الدواء</label><select id="med"><option value="">-- اختر --</option><option>بعد الغداء</option><option>بعد العشاء</option></select></div>
+</div>
+<div class="grid3">
+<div><label for="walking">🚶 هل مشيت أو ستمشي؟</label><select id="walking"><option>لا</option><option>نعم</option></select></div>
+<div><label for="hungry">🍽️ هل أنت جائع؟</label><select id="hungry"><option>لا</option><option>نعم</option></select></div>
+<div><label for="tired">😓 هل أنت متعب؟</label><select id="tired"><option>لا</option><option>نعم</option></select></div>
+</div>
+<div class="grid">
+<div><label for="mealType">🍚 نوع الوجبة</label><select id="mealType"><option value="">-- اختر --</option><option>رز</option><option>خبز</option><option>رز + خبز</option><option>بروتين + خضار فقط</option><option>أكل خارجي</option><option>حلا</option><option>وجبة خفيفة</option></select></div>
+<div><label for="waterCups">💧 أكواب الماء</label><input type="number" id="waterCups" min="0" max="20" placeholder="مثال: 4" /></div>
+</div>
+<label for="reason">✍️ السبب المحتمل</label><textarea id="reason" placeholder="مثال: رز كثير / حلا / ما مشيت"></textarea>
+<div class="chips"><button type="button" class="chip" onclick="appendReason('رز كثير')">رز كثير</button><button type="button" class="chip" onclick="appendReason('حلا')">حلا</button><button type="button" class="chip" onclick="appendReason('ما مشيت')">ما مشيت</button><button type="button" class="chip" onclick="appendReason('أكل خارجي')">أكل خارجي</button></div>
+<label for="notes">📝 ملاحظات إضافية</label><textarea id="notes" placeholder="مثال: مشيت 20 دقيقة / كنت متعب"></textarea>
+<div class="sticky-save"><div class="btn-row"><button class="btn-main" id="saveBtn" onclick="saveReading()">حفظ البيانات</button><button class="btn-warning" id="editBtn" onclick="cancelEdit()" style="display:none;">إلغاء التعديل</button></div></div>
+<div id="resultBox" class="box info">النتيجة ستظهر هنا.</div></div></div>
+<div><div class="card"><h2>القرار الحالي</h2><div id="decisionBox" class="box info">أدخل قراءة ثم اضغط حفظ.</div></div><div class="card"><h2>ملاحظات سريعة</h2><ul class="checklist"><li>قبل الوجبة: 90 - 130 ممتاز</li><li>بعد الوجبة بساعتين: أقل من 180 أفضل</li><li>قبل النوم: 100 - 140 جيد</li><li>أقل من 70: هبوط</li></ul></div></div></div></section>
+
+<section id="tab-history" class="tab-panel"><div class="layout"><div>
+<div class="card"><h2>سجل اليوم</h2><div id="todayLog" class="list">لا توجد قراءات محفوظة اليوم.</div></div>
+<div class="card"><h2>السجل الكامل</h2><div class="filter-row"><select id="historyFilterLevel" onchange="renderFullHistory()"><option value="">كل الحالات</option><option value="ok">جيد</option><option value="warn">تحذير</option><option value="danger">مرتفع/هبوط</option></select><input id="historySearch" oninput="renderFullHistory()" placeholder="ابحث: رز / غداء / حلا" /></div><div id="fullHistory" class="list">لا توجد بيانات بعد.</div></div>
+</div><div><div class="card"><h2>أرشيف الأيام</h2><div id="archiveBox">لا توجد بيانات محفوظة بعد.</div></div></div></div></section>
+
+<section id="tab-insights" class="tab-panel"><div class="layout"><div><div class="card"><h2>تحليل اليوم</h2><div id="summaryBox" class="box info">لا توجد قراءات بعد اليوم.</div><div id="lunchAnalysis" class="box info">تحليل الغداء سيظهر هنا إذا سجلت قراءة بعد الغداء.</div></div><div class="card"><h2>تحليل الأسبوع</h2><div id="weeklyReport" class="box info">لا توجد بيانات أسبوعية كافية بعد.</div><div id="behaviorAnalysis" class="box info">تحليل السلوك سيظهر هنا.</div></div></div><div><div class="card"><h2>الأسباب المتكررة</h2><div id="reasonAnalysis" class="box info">تحليل السبب المتكرر سيظهر هنا.</div></div><div class="card"><h2>أفضل توصية الآن</h2><div id="bestAdvice" class="box info">ستظهر هنا توصية مركزة.</div></div></div></div></section>
+
+<section id="tab-weight" class="tab-panel"><div class="layout"><div><div class="card"><h2>إضافة الوزن الأسبوعي</h2><label for="weightWeekly">الوزن الحالي (كغ)</label><input type="number" id="weightWeekly" step="0.1" min="1" placeholder="مثال: 114.5" /><label for="weightDate">تاريخ الوزن</label><input type="date" id="weightDate" /><div class="btn-row"><button class="btn-main" onclick="saveWeight()">حفظ الوزن</button><button class="btn-soft" onclick="clearWeightFields()">تنظيف</button></div><div id="weightBox" class="box info">لا يوجد وزن محفوظ بعد.</div></div></div><div><div class="card"><h2>النسخة الاحتياطية والتقارير</h2><div class="btn-row"><button class="btn-main" onclick="exportData()">تصدير البيانات</button><button class="btn-soft" onclick="document.getElementById('backupFile').click()">استيراد البيانات</button></div><div class="btn-row"><button class="btn-main" onclick="exportCSV()">تصدير CSV</button><button class="btn-soft" onclick="exportPDFReport()">تصدير PDF</button></div><input type="file" id="backupFile" accept=".json,application/json" style="display:none" onchange="importData(event)" /></div><div class="card"><h2>معلومة مهمة</h2><div class="box info">هذا التطبيق شخصي للتتبع والتنظيم وليس بديلًا عن الطبيب.</div></div></div></div></section>
+<div id="reportSheet" class="report-sheet"></div>
+<div class="footer-note">MB Health Pro V10 — نسخة احترافية جاهزة لـ GitHub Pages</div></div>
+
+<script>
+const SUGAR_KEY="mb_health_pro_v2_records", WEIGHT_KEY="mb_health_pro_v2_weight";
+let editingRef=null, deferredPrompt=null;
+function switchTab(tabName, btn){document.querySelectorAll(".tab-panel").forEach(el=>el.classList.remove("active"));document.querySelectorAll(".tab-btn").forEach(el=>el.classList.remove("active"));document.getElementById("tab-"+tabName).classList.add("active");btn.classList.add("active");window.scrollTo({top:0,behavior:"smooth"});}
+function getDateKey(dateObj=new Date()){return dateObj.getFullYear()+"-"+String(dateObj.getMonth()+1).padStart(2,"0")+"-"+String(dateObj.getDate()).padStart(2,"0");}
+function toLocalDateTimeValue(date=new Date()){const p=n=>String(n).padStart(2,"0");return date.getFullYear()+"-"+p(date.getMonth()+1)+"-"+p(date.getDate())+"T"+p(date.getHours())+":"+p(date.getMinutes());}
+function parseLocalDateTime(input){return input?new Date(input):new Date();}
+function getAllSugar(){return JSON.parse(localStorage.getItem(SUGAR_KEY)||"{}");}
+function saveAllSugar(data){localStorage.setItem(SUGAR_KEY,JSON.stringify(data));}
+function getWeightRecords(){return JSON.parse(localStorage.getItem(WEIGHT_KEY)||"[]");}
+function saveWeightRecords(records){localStorage.setItem(WEIGHT_KEY,JSON.stringify(records));}
+function getTodayRecords(){const all=getAllSugar();return all[getDateKey()]||[];}
+function getLast7DaysSugarRecords(){const all=getAllSugar(), records=[], now=new Date();for(let i=0;i<7;i++){const d=new Date(now);d.setDate(now.getDate()-i);const key=getDateKey(d);if(all[key]) all[key].forEach(r=>records.push(r));}return records.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));}
+function getAllRecordsFlat(){const all=getAllSugar(), items=[];Object.keys(all).forEach(date=>all[date].forEach((r,index)=>items.push({...r,sourceDate:date,sourceIndex:index})));return items.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));}
+function setBox(el, level, text){el.className="box "+level;el.innerText=text;}
+function appendReason(text){const area=document.getElementById("reason"), current=area.value.trim();area.value=current?current+" / "+text:text;}
+function clearReadingFields(){["sugar","waterCups","reason","notes"].forEach(id=>document.getElementById(id).value="");document.getElementById("time").value="قبل الفطور";document.getElementById("trend").value="ثابت";document.getElementById("recordDateTime").value=toLocalDateTimeValue();document.getElementById("insulin").value="";document.getElementById("med").value="";document.getElementById("walking").value="لا";document.getElementById("hungry").value="لا";document.getElementById("tired").value="لا";document.getElementById("mealType").value="";}
+function clearWeightFields(){document.getElementById("weightWeekly").value="";document.getElementById("weightDate").value=getDateKey();}
+function startEditMode(){document.getElementById("saveBtn").innerText="حفظ التعديل";document.getElementById("editBtn").style.display="block";setBox(document.getElementById("resultBox"),"warn","أنت الآن في وضع التعديل.");switchTab("add",document.querySelectorAll(".tab-btn")[1]);}
+function endEditMode(){editingRef=null;document.getElementById("saveBtn").innerText="حفظ البيانات";document.getElementById("editBtn").style.display="none";}
+function cancelEdit(){endEditMode();clearReadingFields();setBox(document.getElementById("resultBox"),"info","تم إلغاء التعديل.");}
+function getStatusInfo(record){if(!record) return {label:"لا توجد بيانات",level:"info"};const sugar=record.sugar,time=record.time;if(["قبل الفطور","قبل الغداء","قبل العشاء"].includes(time)){if(sugar<70) return {label:"هبوط",level:"danger"};if(sugar<90) return {label:"منخفض",level:"warn"};if(sugar<=130) return {label:"ممتاز",level:"ok"};if(sugar<=180) return {label:"مرتفع قليلًا",level:"warn"};return {label:"مرتفع",level:"danger"};}if(["بعد الفطور بساعتين","بعد الغداء بساعتين","بعد العشاء بساعتين"].includes(time)){if(sugar<80) return {label:"منخفض",level:"warn"};if(sugar<=140) return {label:"ممتاز",level:"ok"};if(sugar<=180) return {label:"جيد",level:"ok"};if(sugar<=250) return {label:"مرتفع",level:"warn"};return {label:"مرتفع جدًا",level:"danger"};}if(time==="قبل النوم"){if(sugar<80) return {label:"منخفض",level:"danger"};if(sugar<100) return {label:"منخفض قليلًا",level:"warn"};if(sugar<=140) return {label:"ممتاز",level:"ok"};if(sugar<=180) return {label:"مرتفع قليلًا",level:"warn"};return {label:"مرتفع",level:"danger"};}return {label:"غير محدد",level:"info"};}
+function analyzeReading(data){const {sugar,time,trend,walking,hungry,tired,waterCups}=data;let msg="",level="info",action="";if(["قبل الفطور","قبل الغداء","قبل العشاء"].includes(time)){if(sugar<70){msg="🚨 هبوط واضح قبل الوجبة — خذ سكرًا سريعًا فورًا.";level="danger";action="خذ سكرًا سريعًا";}else if(sugar<90){msg="⚠️ منخفض قبل الوجبة — خذ سناكًا خفيفًا.";level="warn";action="خذ سناك خفيف";}else if(sugar<=130){msg="✅ القراءة ممتازة قبل الوجبة.";level="ok";action="استمر";}else if(sugar<=180){msg="⚠️ مرتفع قليلًا قبل الوجبة — انتبه للنشويات.";level="warn";action="خفف النشويات";}else{msg="🚨 مرتفع قبل الوجبة — خفف الوجبة وراقب السكر.";level="danger";action="راقب وخفف الوجبة";}} else if(["بعد الفطور بساعتين","بعد الغداء بساعتين","بعد العشاء بساعتين"].includes(time)){if(sugar<80){msg="❌ منخفض بعد الوجبة — خذ سكرًا سريعًا.";level="warn";action="خذ سكرًا سريعًا";}else if(sugar<=140){msg="🔥 ممتاز بعد الوجبة.";level="ok";action="ممتاز";}else if(sugar<=180){msg="✅ جيد بعد الوجبة.";level="ok";action="الوضع جيد";}else if(sugar<=250){msg="⚠️ مرتفع بعد الوجبة — امشِ 15 إلى 20 دقيقة.";level="warn";action="امشِ 15 دقيقة";}else{msg="🚨 مرتفع جدًا بعد الوجبة — اشرب ماء وراقب لاحقًا.";level="danger";action="ماء + مراقبة";}} else if(time==="قبل النوم"){if(sugar<80){msg="🚨 منخفض قبل النوم — خذ سكرًا سريعًا وأعد القياس.";level="danger";action="خذ سكرًا سريعًا";}else if(sugar<100){msg="🍎 قبل النوم: خذ سناكًا خفيفًا.";level="warn";action="خذ سناك خفيف";}else if(sugar<=140){msg="👍 ممتاز قبل النوم.";level="ok";action="ممتاز";}else if(sugar<=180){msg="⚠️ أعلى من المطلوب قليلًا قبل النوم.";level="warn";action="لا تأكل زيادة";}else{msg="🚨 مرتفع قبل النوم — راقب القراءة ولا تأكل زيادة.";level="danger";action="راقب الليلة";}}if(trend==="هابط"&&sugar<=100) msg+=" ⬇️ السهم هابط.";if(trend==="صاعد"&&sugar>=180) msg+=" ⬆️ السهم صاعد.";if(hungry==="نعم"&&sugar<100) msg+=" 🍽️ مع الجوع خذ سناكًا خفيفًا.";if(tired==="نعم"&&sugar<100) msg+=" 😓 التعب مع القراءة المنخفضة يحتاج انتباه.";if(walking==="لا"&&sugar>180) msg+=" 🚶 عدم المشي قد يكون عاملًا مهمًا.";if(Number(waterCups||0)<2&&sugar>180) msg+=" 💧 حاول تزيد الماء اليوم.";return {msg,level,action};}
+function buildRecord(){const sugar=parseInt(document.getElementById("sugar").value,10),time=document.getElementById("time").value,trend=document.getElementById("trend").value,recordDateTime=document.getElementById("recordDateTime").value,insulin=document.getElementById("insulin").value,med=document.getElementById("med").value,walking=document.getElementById("walking").value,hungry=document.getElementById("hungry").value,tired=document.getElementById("tired").value,mealType=document.getElementById("mealType").value,waterCups=parseInt(document.getElementById("waterCups").value||"0",10),reason=document.getElementById("reason").value.trim(),notes=document.getElementById("notes").value.trim();if(isNaN(sugar)) return {error:"أدخل قراءة السكر أولًا."};if(sugar<20||sugar>600) return {error:"أدخل قراءة منطقية بين 20 و 600."};const dt=parseLocalDateTime(recordDateTime),analysis=analyzeReading({sugar,time,trend,insulin,med,walking,hungry,tired,waterCups});return {record:{sugar,time,trend,insulin,med,walking,hungry,tired,mealType,waterCups,reason,notes,date:getDateKey(dt),timestamp:dt.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}),createdAt:dt.toISOString(),result:analysis.msg,level:analysis.level,action:analysis.action},analysis};}
+function saveReading(){const built=buildRecord();if(built.error){setBox(document.getElementById("resultBox"),"warn",built.error);return;}const {record,analysis}=built,all=getAllSugar();if(editingRef){const {date,index}=editingRef;if(all[date]&&all[date][index]){all[date].splice(index,1);if(all[date].length===0) delete all[date];}endEditMode();}if(!all[record.date]) all[record.date]=[];all[record.date].unshift(record);all[record.date].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));saveAllSugar(all);setBox(document.getElementById("resultBox"),analysis.level,analysis.msg);setBox(document.getElementById("decisionBox"),analysis.level,"أفضل قرار الآن:\n"+analysis.action+"\n\n"+analysis.msg);clearReadingFields();renderAll();switchTab("home",document.querySelectorAll(".tab-btn")[0]);}
+function saveWeight(){const weight=parseFloat(document.getElementById("weightWeekly").value),date=document.getElementById("weightDate").value;if(isNaN(weight)||!date){setBox(document.getElementById("weightBox"),"warn","أدخل الوزن والتاريخ أولًا.");return;}const records=getWeightRecords();records.push({weight,date});records.sort((a,b)=>new Date(a.date)-new Date(b.date));saveWeightRecords(records);clearWeightFields();renderAll();}
+function editRecord(date,index){const all=getAllSugar();if(!all[date]||!all[date][index]) return;const r=all[date][index];editingRef={date,index};document.getElementById("sugar").value=r.sugar;document.getElementById("time").value=r.time;document.getElementById("trend").value=r.trend||"ثابت";document.getElementById("recordDateTime").value=toLocalDateTimeValue(new Date(r.createdAt||new Date()));document.getElementById("insulin").value=r.insulin||"";document.getElementById("med").value=r.med||"";document.getElementById("walking").value=r.walking||"لا";document.getElementById("hungry").value=r.hungry||"لا";document.getElementById("tired").value=r.tired||"لا";document.getElementById("mealType").value=r.mealType||"";document.getElementById("waterCups").value=r.waterCups||"";document.getElementById("reason").value=r.reason||"";document.getElementById("notes").value=r.notes||"";startEditMode();}
+function deleteRecord(date,index){const all=getAllSugar();if(!all[date]||!all[date][index]) return;if(!confirm("هل تريد حذف هذه القراءة؟")) return;all[date].splice(index,1);if(all[date].length===0) delete all[date];saveAllSugar(all);renderAll();}
+function toggleArchive(id){document.getElementById(id).classList.toggle("open");}
+function getTopReason(records){const map={};records.forEach(r=>{if(r.sugar>180&&r.reason){const key=r.reason.trim().toLowerCase();map[key]=(map[key]||0)+1;}});const sorted=Object.entries(map).sort((a,b)=>b[1]-a[1]);return sorted.length?{reason:sorted[0][0],count:sorted[0][1]}:null;}
+function calculateScore(){const records=getLast7DaysSugarRecords(),weights=getWeightRecords();if(!records.length) return null;let score=100;const highs=records.filter(r=>r.sugar>180).length,lows=records.filter(r=>r.sugar<80).length,goodBefore=records.filter(r=>["قبل الفطور","قبل الغداء","قبل العشاء"].includes(r.time)&&r.sugar>=90&&r.sugar<=130).length,goodAfter=records.filter(r=>["بعد الفطور بساعتين","بعد الغداء بساعتين","بعد العشاء بساعتين"].includes(r.time)&&r.sugar<=180).length,walks=records.filter(r=>r.walking==="نعم").length;score-=highs*5;score-=lows*8;score+=goodBefore*2;score+=goodAfter*2;score+=Math.min(walks,5);if(weights.length>=2){const latest=weights[weights.length-1].weight,previous=weights[weights.length-2].weight;if(latest<previous) score+=5;if(latest>previous) score-=5;}return Math.max(0,Math.min(100,score));}
+function dailyStatus(records){const highs=records.filter(r=>r.sugar>180).length,lows=records.filter(r=>r.sugar<80).length;if(highs===0&&lows===0) return {text:"جيد",cls:"good"};if(highs<=1&&lows===0) return {text:"متوسط",cls:"mid"};return {text:"يحتاج انتباه",cls:"bad"};}
+function renderDashboard(){const todayRecords=getTodayRecords(),weights=getWeightRecords(),last=getAllRecordsFlat()[0];document.getElementById("dashLastSugar").innerText=last?last.sugar+" mg/dL":"--";document.getElementById("dashLastTime").innerText=last?`${last.time} — ${last.date} ${last.timestamp}`:"لا توجد قراءة بعد";if(last){const st=getStatusInfo(last);document.getElementById("dashStatus").innerText=st.label;document.getElementById("dashStatusSub").innerText="آخر تقييم للحالة";document.getElementById("dashAction").innerText=last.action||"راقب";document.getElementById("dashActionSub").innerText=last.result.length>55?last.result.slice(0,55)+"...":last.result;}else{document.getElementById("dashStatus").innerText="ابدأ";document.getElementById("dashStatusSub").innerText="أضف أول قراءة";document.getElementById("dashAction").innerText="ابدأ بإضافة قراءة";document.getElementById("dashActionSub").innerText="سيظهر الاقتراح هنا";}if(weights.length){const latest=weights[weights.length-1];document.getElementById("dashWeight").innerText=latest.weight+" كغ";document.getElementById("dashWeightSub").innerText=latest.date;}else{document.getElementById("dashWeight").innerText="--";document.getElementById("dashWeightSub").innerText="لا يوجد وزن محفوظ";}const score=calculateScore();document.getElementById("dashScore").innerText=score===null?"--":score+"/100";document.getElementById("dashScoreSub").innerText=score===null?"لا توجد بيانات":(score>=85?"ممتاز":score>=70?"جيد":score>=50?"متوسط":"يحتاج تحسين");
+  const streak=calculateStreak();
+  const ds=document.getElementById("dashStreak"), dss=document.getElementById("dashStreakSub");
+  if(ds && dss){ ds.innerText=streak; dss.innerText=streak>0?`سجلت ${streak} يوم متتالي`:"ابدأ اليوم"; }const todayAvg=todayRecords.length?Math.round(todayRecords.reduce((a,b)=>a+b.sugar,0)/todayRecords.length):null;document.getElementById("metricTodayCount").innerText=todayRecords.length;document.getElementById("metricHighs").innerText=todayRecords.filter(r=>r.sugar>180).length;document.getElementById("metricLows").innerText=todayRecords.filter(r=>r.sugar<80).length;document.getElementById("metricAvg").innerText=todayAvg?todayAvg:"--";}
+function renderCurrentSummary(){const today=getTodayRecords(),summary=document.getElementById("todaySummary"),pill=document.getElementById("currentStatusPill"),last=today[0];if(!today.length){setBox(summary,"info","لا توجد قراءات اليوم بعد.");pill.innerHTML="";return;}const highs=today.filter(r=>r.sugar>180).length,lows=today.filter(r=>r.sugar<80).length,avg=Math.round(today.reduce((a,b)=>a+b.sugar,0)/today.length),st=getStatusInfo(last);setBox(summary,st.level,`آخر قراءة: ${last.sugar} mg/dL\nمتوسط اليوم: ${avg}\nمرتفعة: ${highs} | منخفضة: ${lows}\n\nالقرار الحالي: ${last.action||"راقب"}`);pill.innerHTML=`<span class="status-pill ${st.level}">الحالة الحالية: ${st.label}</span>`;}
+function renderMiniChart(){const records=getAllRecordsFlat().slice(0,7).reverse(),box=document.getElementById("miniChart");if(!records.length){box.innerHTML='<div class="muted">لا توجد بيانات بعد.</div>';return;}const maxValue=Math.max(...records.map(r=>r.sugar),180);box.innerHTML=records.map(r=>`<div class="bar-wrap"><div class="bar-value">${r.sugar}</div><div class="bar" style="height:${Math.max(12,Math.round((r.sugar/maxValue)*160))}px"></div><div class="bar-label">${r.time.split(" ")[0]}</div></div>`).join("");}
+function renderSummary(){const records=getTodayRecords(),box=document.getElementById("summaryBox");if(!records.length){setBox(box,"info","لا توجد قراءات بعد اليوم.");return;}const highs=records.filter(r=>r.sugar>180).length,lows=records.filter(r=>r.sugar<80).length,lunchHighs=records.filter(r=>r.time==="بعد الغداء بساعتين"&&r.sugar>180).length,avg=Math.round(records.reduce((a,b)=>a+b.sugar,0)/records.length);let msg=`عدد القراءات اليوم: ${records.length}\nمتوسط اليوم: ${avg}\nمرتفعة فوق 180: ${highs}\nمنخفضة تحت 80: ${lows}\nارتفاعات بعد الغداء: ${lunchHighs}\n\n`;if(lunchHighs>=1) setBox(box,"warn",msg+"⚠️ الغداء يبدو نقطة تحتاج تحسين اليوم.");else if(highs===0&&lows===0) setBox(box,"ok",msg+"🔥 يومك منظم جيدًا.");else setBox(box,"info",msg+"ℹ️ اليوم متوسط.");}
+function renderWeeklyReport(){const records=getLast7DaysSugarRecords(),box=document.getElementById("weeklyReport");if(!records.length){setBox(box,"info","لا توجد بيانات أسبوعية كافية بعد.");return;}const breakfastHighs=records.filter(r=>r.time==="بعد الفطور بساعتين"&&r.sugar>180).length,lunchHighs=records.filter(r=>r.time==="بعد الغداء بساعتين"&&r.sugar>180).length,dinnerHighs=records.filter(r=>r.time==="بعد العشاء بساعتين"&&r.sugar>180).length;let msg=`ارتفاعات بعد الفطور: ${breakfastHighs}\nارتفاعات بعد الغداء: ${lunchHighs}\nارتفاعات بعد العشاء: ${dinnerHighs}\n\n`;if(lunchHighs>breakfastHighs&&lunchHighs>dinnerHighs) setBox(box,"warn",msg+"🚨 الغداء هو المشكلة الرئيسية هذا الأسبوع.");else if(breakfastHighs===0&&lunchHighs===0&&dinnerHighs===0) setBox(box,"ok",msg+"🔥 لا توجد ارتفاعات كبيرة بعد الوجبات.");else setBox(box,"info",msg+"ℹ️ المشكلة ليست في الغداء فقط.");}
+function renderScore(){const score=calculateScore(),box=document.getElementById("scoreBox"),progress=document.getElementById("scoreProgress");if(score===null){progress.style.width="0%";setBox(box,"info","لا توجد بيانات كافية بعد.");return;}progress.style.width=score+"%";if(score>=85) setBox(box,"ok",`${score} / 100\n🔥 ممتاز جدًا.`);else if(score>=70) setBox(box,"ok",`${score} / 100\n✅ جيد.`);else if(score>=50) setBox(box,"warn",`${score} / 100\n⚠️ متوسط.`);else setBox(box,"danger",`${score} / 100\n🚨 يحتاج تحسين واضح.`);}
+function renderSmartPlan(){const records=getLast7DaysSugarRecords(),weights=getWeightRecords(),box=document.getElementById("smartPlan");if(!records.length){setBox(box,"info","ابدأ بإضافة قراءات وسيتم بناء خطة لك.");return;}const lunchHighs=records.filter(r=>r.time==="بعد الغداء بساعتين"&&r.sugar>180).length,noWalkHighs=records.filter(r=>r.sugar>180&&r.walking==="لا").length,topReason=getTopReason(records);let msg="خطة هذا الأسبوع:\n\n";msg+=lunchHighs>=2?"• خفف الرز أو لا تجمع رز + خبز في الغداء.\n":"• راقب كمية الغداء.\n";msg+=noWalkHighs>=2?"• امشِ 15 إلى 20 دقيقة بعد الأكل.\n":"• استمر على المشي.\n";if(topReason){msg+=`• السبب الأكثر تكرارًا: ${topReason.reason}\n• حاول تتجنب هذا السبب 3 أيام.\n`;}else{msg+="• اكتب السبب عند كل ارتفاع.\n";}if(weights.length>=2){const latest=weights[weights.length-1].weight,previous=weights[weights.length-2].weight;msg+=latest>=previous?"• قلل الأكل الخارجي أو الحلا.\n":"• نزول الوزن موجود، استمر.\n";}else{msg+="• سجل الوزن أسبوعيًا.\n";}setBox(box,"ok",msg);}
+function renderWeight(){const records=getWeightRecords(),box=document.getElementById("weightBox");if(!records.length){setBox(box,"info","لا يوجد وزن محفوظ بعد.");return;}const latest=records[records.length-1];let msg=`آخر وزن: ${latest.weight} كغ بتاريخ ${latest.date}\n`;if(records.length>=2){const previous=records[records.length-2],diff=+(latest.weight-previous.weight).toFixed(1);if(diff<0) setBox(box,"ok",msg+`⬇️ نزول وزن: ${Math.abs(diff)} كغ`);else if(diff>0) setBox(box,"warn",msg+`⬆️ زيادة وزن: ${diff} كغ`);else setBox(box,"info",msg+"➖ الوزن ثابت");}else setBox(box,"info",msg+"أضف وزنًا ثانيًا للمقارنة.");}
+function renderTodayLog(){const records=getTodayRecords(),box=document.getElementById("todayLog");if(!records.length){box.innerHTML="لا توجد قراءات محفوظة اليوم.";return;}box.innerHTML=records.map((r,index)=>`<div class="item"><strong>${r.sugar} mg/dL</strong><br>${r.timestamp} — ${r.time} — ${r.trend}<br>${r.mealType?"🍽️ "+r.mealType+"<br>":""}${r.reason?"✍️ "+r.reason+"<br>":""}${r.notes?"📝 "+r.notes+"<br>":""}<span class="muted">${r.result}</span><div class="inline-actions"><button class="btn-soft btn-mini" onclick="editRecord('${getDateKey()}', ${index})">✏️ تعديل</button><button class="btn-danger btn-mini" onclick="deleteRecord('${getDateKey()}', ${index})">🗑️ حذف</button></div></div>`).join("");}
+function renderArchive(){const all=getAllSugar(),box=document.getElementById("archiveBox"),dates=Object.keys(all).sort().reverse();if(!dates.length){box.innerHTML="لا توجد بيانات محفوظة بعد.";return;}let html="";dates.forEach((date,i)=>{const records=all[date]||[],status=dailyStatus(records),highs=records.filter(r=>r.sugar>180).length,lows=records.filter(r=>r.sugar<80).length,body=records.map((r,index)=>`<div class="item"><strong>${r.sugar} mg/dL</strong><br>${r.timestamp} — ${r.time}<br>${r.reason?"✍️ "+r.reason+"<br>":""}<span class="muted">${r.result}</span><div class="inline-actions"><button class="btn-soft btn-mini" onclick="editRecord('${date}', ${index})">✏️ تعديل</button><button class="btn-danger btn-mini" onclick="deleteRecord('${date}', ${index})">🗑️ حذف</button></div></div>`).join("");html+=`<div class="archive-day"><div class="archive-head" onclick="toggleArchive('day-${i}')"><div><div><strong>${date}</strong></div><div class="archive-meta">عدد القراءات: ${records.length} | مرتفعة: ${highs} | منخفضة: ${lows}</div></div><div class="pill ${status.cls}">${status.text}</div></div><div id="day-${i}" class="archive-body">${body}</div></div>`;});box.innerHTML=html;}
+function renderFullHistory(){const level=document.getElementById("historyFilterLevel").value,q=document.getElementById("historySearch").value.trim().toLowerCase();let records=getAllRecordsFlat();if(level) records=records.filter(r=>r.level===level);if(q){records=records.filter(r=>(r.time||"").toLowerCase().includes(q)||(r.reason||"").toLowerCase().includes(q)||(r.notes||"").toLowerCase().includes(q)||(r.mealType||"").toLowerCase().includes(q));}const box=document.getElementById("fullHistory");if(!records.length){box.innerHTML="لا توجد نتائج.";return;}box.innerHTML=records.map(r=>`<div class="item"><strong>${r.sugar} mg/dL</strong><br>${r.date} — ${r.timestamp}<br>${r.time}${r.mealType?" — "+r.mealType:""}<br>${r.reason?"✍️ "+r.reason+"<br>":""}<span class="muted">${r.result}</span><div class="inline-actions"><button class="btn-soft btn-mini" onclick="editRecord('${r.sourceDate}', ${r.sourceIndex})">✏️ تعديل</button><button class="btn-danger btn-mini" onclick="deleteRecord('${r.sourceDate}', ${r.sourceIndex})">🗑️ حذف</button></div></div>`).join("");}
+function renderExtraAnalysis(){const week=getLast7DaysSugarRecords(),reasonBox=document.getElementById("reasonAnalysis"),behaviorBox=document.getElementById("behaviorAnalysis"),lunchBox=document.getElementById("lunchAnalysis"),bestAdvice=document.getElementById("bestAdvice"),topReason=getTopReason(week);if(topReason){let msg=`🔍 أكثر سبب متكرر:\n\n${topReason.reason}\n\nعدد مرات التكرار: ${topReason.count}`;if(topReason.reason.includes("رز")) msg+="\n\n🍚 خفف الرز.";if(topReason.reason.includes("حلا")) msg+="\n\n🍩 الحلا سبب واضح.";if(topReason.reason.includes("ما مشيت")) msg+="\n\n🚶 المشي بعد الأكل مهم.";setBox(reasonBox,topReason.count>=3?"warn":"info",msg);} else setBox(reasonBox,"info","لا توجد أسباب كافية مسجلة بعد.");const highNoWalk=week.filter(r=>r.sugar>180&&r.walking==="لا").length,tiredLows=week.filter(r=>r.sugar<100&&r.tired==="نعم").length;if(highNoWalk>=2||tiredLows>=2){let msg="";if(highNoWalk>=2) msg+="🚶 عدم المشي بعد الأكل يبدو سببًا للارتفاع.\n";if(tiredLows>=2) msg+="😓 التعب يتكرر مع القراءات المنخفضة.";setBox(behaviorBox,"warn",msg);} else setBox(behaviorBox,"ok","✅ لا يظهر نمط سلبي واضح حاليًا.");const today=getTodayRecords(),lunch=today.find(r=>r.time==="بعد الغداء بساعتين");if(!lunch) setBox(lunchBox,"info","تحليل الغداء سيظهر هنا إذا سجلت قراءة بعد الغداء.");else if(lunch.sugar<=140) setBox(lunchBox,"ok","🔥 الغداء مضبوط اليوم.");else if(lunch.sugar<=180) setBox(lunchBox,"info","✅ الغداء مقبول اليوم.");else{let msg="⚠️ الغداء رفع السكر اليوم.";if(lunch.mealType) msg+=`\nالوجبة: ${lunch.mealType}`;if(lunch.reason) msg+=`\nالسبب المكتوب: ${lunch.reason}`;setBox(lunchBox,"warn",msg);}if(!week.length) setBox(bestAdvice,"info","ستظهر هنا توصية مركزة.");else{const lunchHighs=week.filter(r=>r.time==="بعد الغداء بساعتين"&&r.sugar>180).length,noWalk=week.filter(r=>r.sugar>180&&r.walking==="لا").length;if(lunchHighs>=2) setBox(bestAdvice,"warn","أفضل توصية الآن:\nخفف نشويات الغداء هذا الأسبوع.");else if(noWalk>=2) setBox(bestAdvice,"warn","أفضل توصية الآن:\nأضف مشيًا 15 إلى 20 دقيقة بعد الأكل.");else setBox(bestAdvice,"ok","أفضل توصية الآن:\nاستمر على التسجيل المنتظم.");}}
+function exportData(){const data={sugar:getAllSugar(),weight:getWeightRecords()},blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mb-health-pro-v2-backup.json";a.click();URL.revokeObjectURL(a.href);}
+function importData(event){const file=event.target.files[0];if(!file) return;const reader=new FileReader();reader.onload=function(){try{const data=JSON.parse(reader.result);if(data.sugar) saveAllSugar(data.sugar);if(data.weight) saveWeightRecords(data.weight);renderAll();alert("تم استيراد البيانات بنجاح");}catch(e){alert("ملف النسخة الاحتياطية غير صالح");}};reader.readAsText(file);event.target.value="";}
+
+function getLast30DaysSugarRecords(){
+  const all=getAllSugar(),records=[],now=new Date();
+  for(let i=0;i<30;i++){
+    const d=new Date(now); d.setDate(now.getDate()-i);
+    const key=getDateKey(d);
+    if(all[key]) all[key].forEach(r=>records.push(r));
+  }
+  return records.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+}
+
+function exportCSV(){
+  const rows=[["date","time","sugar","trend","mealType","walking","hungry","tired","waterCups","reason","notes","level"]];
+  getAllRecordsFlat().forEach(r=>{
+    rows.push([r.date,r.time,r.sugar,r.trend||"",r.mealType||"",r.walking||"",r.hungry||"",r.tired||"",r.waterCups||"", (r.reason||"").replace(/,/g," "), (r.notes||"").replace(/,/g," "), r.level||""]);
+  });
+  const csv=rows.map(row=>row.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="mb-health-pro-v5.csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function applyTheme(theme){
+  document.body.classList.toggle("dark", theme==="dark");
+  const btn=document.getElementById("themeBtn");
+  if(btn) btn.innerText = theme==="dark" ? "الوضع النهاري" : "الوضع الليلي";
+  localStorage.setItem("mb_theme", theme);
+}
+
+function toggleTheme(){
+  const next=document.body.classList.contains("dark") ? "light" : "dark";
+  applyTheme(next);
+}
+
+function renderMonthlyInfo(){
+  const records=getLast30DaysSugarRecords();
+  const avgEl=document.getElementById("dashMonthAvg");
+  const subEl=document.getElementById("dashMonthSub");
+  if(!avgEl || !subEl) return;
+  if(!records.length){
+    avgEl.innerText="--";
+    subEl.innerText="لا توجد بيانات";
+    return;
+  }
+  const avg=Math.round(records.reduce((a,b)=>a+b.sugar,0)/records.length);
+  avgEl.innerText=avg;
+  subEl.innerText=`${records.length} قراءة في آخر 30 يوم`;
+}
+
+
+function renderGoals(){
+  const today=getTodayRecords();
+  const water=today.reduce((sum,r)=>sum+(Number(r.waterCups)||0),0);
+  const walks=today.filter(r=>r.walking==="نعم").length;
+  const waterGoal=8, walkGoal=2;
+  const waterPct=Math.min(100, Math.round((water/waterGoal)*100));
+  const walkPct=Math.min(100, Math.round((walks/walkGoal)*100));
+  const waterEl=document.getElementById("waterToday"), walkEl=document.getElementById("walkToday");
+  if(waterEl) waterEl.innerText=water;
+  if(walkEl) walkEl.innerText=walks;
+  const wp=document.getElementById("waterProgress"), mp=document.getElementById("walkProgress");
+  if(wp) wp.style.width=waterPct+"%";
+  if(mp) mp.style.width=walkPct+"%";
+  const wgt=document.getElementById("waterGoalText"), mgt=document.getElementById("walkGoalText");
+  if(wgt) wgt.innerText=`الهدف: ${waterGoal} أكواب ماء — ${waterPct}%`;
+  if(mgt) mgt.innerText=`الهدف: ${walkGoal} مرات مشي — ${walkPct}%`;
+}
+
+function exportPDFReport(){
+  const all=getAllRecordsFlat();
+  const weights=getWeightRecords();
+  const score=calculateScore();
+  const last=all[0];
+  const avg30=(function(){const r=getLast30DaysSugarRecords(); return r.length ? Math.round(r.reduce((a,b)=>a+b.sugar,0)/r.length) : "--";})();
+  const today=getTodayRecords();
+  const water=today.reduce((sum,r)=>sum+(Number(r.waterCups)||0),0);
+  const walks=today.filter(r=>r.walking==="نعم").length;
+  const sheet=document.getElementById("reportSheet");
+  sheet.innerHTML = `
+    <h1 style="margin:0 0 12px;color:#198754">MB Health Pro V10 Report</h1>
+    <div style="margin-bottom:16px">تاريخ التقرير: ${new Date().toLocaleDateString()}</div>
+    <h2>ملخص سريع</h2>
+    <p>آخر قراءة: ${last ? last.sugar + " mg/dL" : "--"}</p>
+    <p>الحالة الحالية: ${last ? getStatusInfo(last).label : "--"}</p>
+    <p>درجة الأسبوع: ${score === null ? "--" : score + "/100"}</p>
+    <p>متوسط آخر 30 يوم: ${avg30}</p>
+    <p>أكواب الماء اليوم: ${water}</p>
+    <p>مرات المشي اليوم: ${walks}</p>
+    <h2>آخر 10 قراءات</h2>
+    <table style="width:100%;border-collapse:collapse">
+      <thead>
+        <tr>
+          <th style="border:1px solid #ccc;padding:8px">التاريخ</th>
+          <th style="border:1px solid #ccc;padding:8px">الوقت</th>
+          <th style="border:1px solid #ccc;padding:8px">القراءة</th>
+          <th style="border:1px solid #ccc;padding:8px">الحالة</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${all.slice(0,10).map(r=>`<tr><td style="border:1px solid #ccc;padding:8px">${r.date}</td><td style="border:1px solid #ccc;padding:8px">${r.time}</td><td style="border:1px solid #ccc;padding:8px">${r.sugar}</td><td style="border:1px solid #ccc;padding:8px">${getStatusInfo(r).label}</td></tr>`).join("")}
+      </tbody>
+    </table>
+    <h2 style="margin-top:20px">آخر الأوزان</h2>
+    <ul>${weights.slice(-5).reverse().map(w=>`<li>${w.date}: ${w.weight} كغ</li>`).join("") || "<li>لا توجد بيانات وزن</li>"}</ul>
+  `;
+  window.print();
+}
+
+
+function calculateStreak(){
+  const all=getAllSugar();
+  const dates=Object.keys(all).sort().reverse();
+  if(!dates.length) return 0;
+  let streak=0;
+  const now=new Date();
+  for(let i=0;;i++){
+    const d=new Date(now); d.setDate(now.getDate()-i);
+    const key=getDateKey(d);
+    if(all[key] && all[key].length){ streak++; }
+    else break;
+  }
+  return streak;
+}
+
+function renderPremiumInsights(){
+  const records=getLast7DaysSugarRecords();
+  const bestEl=document.getElementById("bestSlot");
+  const reasonEl=document.getElementById("topReasonShort");
+  const moodEl=document.getElementById("todayMood");
+  const patternEl=document.getElementById("weeklyPatternBox");
+  if(!bestEl || !reasonEl || !moodEl || !patternEl) return;
+
+  if(!records.length){
+    bestEl.innerText="--";
+    reasonEl.innerText="--";
+    moodEl.innerText="--";
+    setBox(patternEl,"info","ستظهر هنا خلاصة الأسبوع.");
+    return;
+  }
+
+  const slots = {
+    "قبل الفطور": [], "بعد الفطور بساعتين": [], "قبل الغداء": [], "بعد الغداء بساعتين": [],
+    "قبل العشاء": [], "بعد العشاء بساعتين": [], "قبل النوم": []
+  };
+  records.forEach(r => { if(slots[r.time]) slots[r.time].push(r.sugar); });
+  let bestSlot="--", bestAvg=Infinity;
+  Object.entries(slots).forEach(([k,v]) => {
+    if(v.length){
+      const avg=v.reduce((a,b)=>a+b,0)/v.length;
+      if(avg < bestAvg){ bestAvg=avg; bestSlot=k; }
+    }
+  });
+
+  const top = getTopReason(records);
+  const today=getTodayRecords();
+  const highs=today.filter(r=>r.sugar>180).length;
+  const lows=today.filter(r=>r.sugar<80).length;
+  const mood = !today.length ? "--" : (highs===0 && lows===0 ? "ممتاز" : highs<=1 && lows===0 ? "جيد" : "انتبه");
+
+  bestEl.innerText = bestSlot === "--" ? "--" : bestSlot.replace(" بساعتين","");
+  reasonEl.innerText = top ? (top.reason.length > 10 ? top.reason.slice(0,10)+"..." : top.reason) : "--";
+  moodEl.innerText = mood;
+
+  const lunchHighs=records.filter(r=>r.time==="بعد الغداء بساعتين" && r.sugar>180).length;
+  const walks=records.filter(r=>r.walking==="نعم").length;
+  const avg=Math.round(records.reduce((a,b)=>a+b.sugar,0)/records.length);
+  let text = `متوسط الأسبوع: ${avg}\n`;
+  text += `أفضل فترة عندك: ${bestSlot}\n`;
+  text += `ارتفاعات بعد الغداء: ${lunchHighs}\n`;
+  text += `مرات المشي المسجلة: ${walks}\n\n`;
+  if(lunchHighs >= 2) text += "التوصية: ركز على الغداء هذا الأسبوع.";
+  else if(walks < 2) text += "التوصية: زد المشي بعد الأكل.";
+  else text += "الوضع جيد واستمر على نفس النمط.";
+  setBox(patternEl, lunchHighs >= 2 ? "warn" : "ok", text);
+}
+
+
+function renderProSummary(){
+  const records=getLast30DaysSugarRecords();
+  const best=document.getElementById("proBestAvg");
+  const maxEl=document.getElementById("proMaxSugar");
+  const minEl=document.getElementById("proMinSugar");
+  if(!best || !maxEl || !minEl) return;
+  if(!records.length){
+    best.innerText="--"; maxEl.innerText="--"; minEl.innerText="--"; return;
+  }
+  const avg=Math.round(records.reduce((a,b)=>a+b.sugar,0)/records.length);
+  const max=Math.max(...records.map(r=>r.sugar));
+  const min=Math.min(...records.map(r=>r.sugar));
+  best.innerText=avg;
+  maxEl.innerText=max;
+  minEl.innerText=min;
+}
+
+
+function getMealBucketName(time){
+  if(!time) return "غير محدد";
+  if(time.includes("الفطور")) return "الفطور";
+  if(time.includes("الغداء")) return "الغداء";
+  if(time.includes("العشاء")) return "العشاء";
+  if(time.includes("النوم")) return "قبل النوم";
+  return time;
+}
+
+function renderLocalAI(){
+  const week=getLast7DaysSugarRecords();
+  const summary=document.getElementById("aiSummaryBox");
+  const advice=document.getElementById("aiAdviceBox");
+  const pattern=document.getElementById("aiPatternBox");
+  const risk=document.getElementById("aiRiskBox");
+  const riskBar=document.getElementById("aiRiskProgress");
+  const coach=document.getElementById("aiCoachBox");
+  const weekly=document.getElementById("aiWeeklyBox");
+  if(!summary || !advice || !pattern || !risk || !riskBar || !coach || !weekly) return;
+
+  if(!week.length){
+    setBox(summary,"info","أضف قراءات أكثر ليبدأ التحليل الذكي.");
+    setBox(advice,"info","ستظهر هنا توصية يومية مركزة.");
+    setBox(pattern,"info","سيكتشف التطبيق الأنماط المتكررة من بياناتك.");
+    setBox(risk,"info","لا توجد بيانات كافية بعد.");
+    riskBar.style.width="0%";
+    setBox(coach,"info","المدرب اليومي سيظهر هنا.");
+    setBox(weekly,"info","الخلاصة الأسبوعية الذكية ستظهر هنا.");
+    return;
+  }
+
+  const highs=week.filter(r=>r.sugar>180);
+  const lows=week.filter(r=>r.sugar<80);
+  const walksYes=week.filter(r=>r.walking==="نعم").length;
+  const walksNoHighs=week.filter(r=>r.walking==="لا" && r.sugar>180).length;
+  const avg=Math.round(week.reduce((a,b)=>a+b.sugar,0)/week.length);
+  const topReason=getTopReason(week);
+
+  const mealMap={};
+  highs.forEach(r=>{
+    const key=getMealBucketName(r.time);
+    mealMap[key]=(mealMap[key]||0)+1;
+  });
+  const topMeal=Object.entries(mealMap).sort((a,b)=>b[1]-a[1])[0];
+
+  let riskScore=0;
+  riskScore += Math.min(40, highs.length * 8);
+  riskScore += Math.min(35, lows.length * 12);
+  riskScore += walksNoHighs >= 2 ? 15 : 0;
+  riskScore += avg > 180 ? 15 : avg > 150 ? 8 : 0;
+  riskScore = Math.max(0, Math.min(100, riskScore));
+
+  let summaryText=`متوسط آخر 7 أيام: ${avg}\n`;
+  summaryText += `ارتفاعات فوق 180: ${highs.length}\n`;
+  summaryText += `انخفاضات تحت 80: ${lows.length}\n`;
+  summaryText += `مرات المشي المسجلة: ${walksYes}\n`;
+  if(topMeal) summaryText += `أكثر فترة ارتفاع: ${topMeal[0]}\n`;
+  if(topReason) summaryText += `أكثر سبب متكرر: ${topReason.reason}`;
+  setBox(summary, riskScore >= 60 ? "warn" : "ok", summaryText);
+
+  let adviceText="", adviceLevel="ok";
+  if(topMeal && topMeal[0]==="الغداء"){
+    adviceText="التوصية الرئيسية: ركز على الغداء. خفف الرز أو لا تجمع رز + خبز.";
+    adviceLevel="warn";
+  } else if(walksNoHighs >= 2){
+    adviceText="التوصية الرئيسية: أضف مشيًا 15 إلى 20 دقيقة بعد الأكل هذا الأسبوع.";
+    adviceLevel="warn";
+  } else if(topReason && topReason.reason.includes("حلا")){
+    adviceText="التوصية الرئيسية: الحلا يظهر كسبب متكرر. حاول تخففه هذا الأسبوع.";
+    adviceLevel="warn";
+  } else {
+    adviceText="الوضع مستقر نسبيًا. استمر على نفس النمط وواصل التسجيل.";
+  }
+  setBox(advice, adviceLevel, adviceText);
+
+  let patternText="", patternLevel="info";
+  if(topMeal) patternText += `النمط 1: الارتفاعات تتكرر أكثر في ${topMeal[0]}.\n`;
+  if(walksNoHighs >= 2) patternText += "النمط 2: عدم المشي مرتبط بارتفاعات متكررة.\n";
+  if(topReason) patternText += `النمط 3: السبب المتكرر الأكثر هو: ${topReason.reason}.\n`;
+  if(!patternText) patternText="لا يوجد نمط واضح جدًا بعد، لكن استمر على التسجيل.";
+  if(topMeal || walksNoHighs >= 2 || topReason) patternLevel="warn";
+  setBox(pattern, patternLevel, patternText.trim());
+
+  riskBar.style.width=riskScore+"%";
+  let riskText=`AI Risk Score: ${riskScore}/100\n`, riskLevel="ok";
+  if(riskScore >= 70){ riskText += "المخاطر مرتفعة هذا الأسبوع. ركز على تعديل الأكل والمشي."; riskLevel="danger"; }
+  else if(riskScore >= 40){ riskText += "المخاطر متوسطة. يحتاج بعض الانتباه."; riskLevel="warn"; }
+  else { riskText += "المخاطر منخفضة نسبيًا. استمر."; }
+  setBox(risk, riskLevel, riskText);
+
+  const today=getTodayRecords();
+  let coachText="", coachLevel="info";
+  if(!today.length){
+    coachText="Coach اليوم: أضف أول قراءة اليوم حتى يبدأ التحليل اليومي.";
+  } else {
+    const last=today[0];
+    coachText=`آخر قراءة اليوم: ${last.sugar} mg/dL\n`;
+    coachText += `القرار الفوري: ${last.action || "راقب"}\n`;
+    if(last.sugar > 180){ coachText += "Coach: اشرب ماء وامشِ قليلًا إذا أمكن."; coachLevel="warn"; }
+    else if(last.sugar < 90){ coachText += "Coach: خذ سناك خفيف وراقب القراءة التالية."; coachLevel="warn"; }
+    else { coachText += "Coach: وضعك الحالي جيد."; coachLevel="ok"; }
+  }
+  setBox(coach, coachLevel, coachText);
+
+  let weeklyText="الخلاصة الأسبوعية:\n\n";
+  if(avg <= 140) weeklyText += "أداؤك الأسبوعي جيد من ناحية المتوسط.\n";
+  else if(avg <= 180) weeklyText += "المتوسط مقبول لكن يحتاج تحسين بسيط.\n";
+  else weeklyText += "المتوسط مرتفع ويحتاج تعديل واضح.\n";
+  if(topMeal) weeklyText += `ركز أكثر على ${topMeal[0]}.\n`;
+  if(walksYes >= 3) weeklyText += "المشي حاضر بشكل جيد عندك.\n";
+  else weeklyText += "حاول ترفع عدد مرات المشي.\n";
+  if(topReason) weeklyText += `السبب الذي يجب مراقبته: ${topReason.reason}.`;
+  setBox(weekly, avg > 180 ? "warn" : "ok", weeklyText);
+}
+
+function renderAll(){renderDashboard();renderCurrentSummary();renderLocalAI();renderMiniChart();renderSummary();renderWeeklyReport();renderScore();renderSmartPlan();renderWeight();renderTodayLog();renderArchive();renderFullHistory();renderExtraAnalysis();}
+window.addEventListener("beforeinstallprompt",(e)=>{e.preventDefault();deferredPrompt=e;document.getElementById("installBtn").style.display="inline-block";});
+document.addEventListener("click", async function(e){if(e.target&&e.target.id==="installBtn"&&deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;e.target.style.display="none";}});
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js"));}
+window.onload=function(){document.getElementById("recordDateTime").value=toLocalDateTimeValue();document.getElementById("weightDate").value=getDateKey();applyTheme(localStorage.getItem("mb_theme")||"light");renderAll();}
+</script>
+</body></html>
